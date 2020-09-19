@@ -103,7 +103,9 @@ jobs:
           ${{ runner.os }}-go-
 
     - name: Set up Env
-      run:  echo "::add-path::$(go env GOPATH)/bin"
+      run: |
+        echo "::set-env name=GOPATH::$(go env GOPATH)"
+        echo "::add-path::$(go env GOPATH)/bin"
 
     - name: Get dependencies
       run: |
@@ -127,9 +129,6 @@ jobs:
     - name: Tool
       run: |
         go install ./...
-        sudo mkdir -p $GOPATH/src
-        sudo cp -R ../kratos $GOPATH/src
-        cd $GOPATH/src
         kratos new kratos-demo
         cd kratos-demo
         go build ./...
