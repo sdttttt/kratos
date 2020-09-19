@@ -135,6 +135,8 @@ jobs:
     - name: Tool
       run: |
         go install ./...
+        cp -R ../kratos $GOPATH/src
+        cd $GOPATH/src
         kratos new kratos-demo
         cd kratos-demo
         go build ./...
